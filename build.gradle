@@ -1,0 +1,16 @@
+group 'de.pinguinkiste'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'groovy' // for Spock tests only
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'org.codehaus.groovy:groovy-all:2.3.11'
+    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4-rc-2'
+}
