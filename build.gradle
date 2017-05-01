@@ -4,6 +4,9 @@ version '1.0-SNAPSHOT'
 apply plugin: 'groovy' // for Spock tests only
 apply plugin: 'java'
 
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+
 sourceCompatibility = 1.8
 
 repositories {
@@ -13,4 +16,12 @@ repositories {
 dependencies {
     testCompile 'org.codehaus.groovy:groovy-all:2.3.11'
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4-rc-2'
+}
+
+checkstyle {
+    toolVersion = '7.7'
+}
+
+pmd {
+    toolVersion = '5.6.1'
 }
