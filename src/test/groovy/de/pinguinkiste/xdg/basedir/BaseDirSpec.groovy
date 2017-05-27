@@ -75,4 +75,39 @@ class BaseDirSpec extends Specification {
         expect:
         baseDir.userConfigDir == '/foo/bar/.config'
     }
+
+    void 'When XDG_CACHE_HOME is set, return its value'() {
+        given:
+        def env = Stub(Environment) {
+            valueOf('XDG_CACHE_HOME') >> Optional.of('/some/arbitrary/directory')
+        }
+        baseDir = new BaseDir(env)
+
+        expect:
+        baseDir.userCacheDir == '/some/arbitrary/directory'
+    }
+
+    void 'When XDG_CACHE_HOME is not set, return default value ($HOME/.cache)'() {
+        given:
+        def env = Stub(Environment) {
+            valueOf('HOME') >> Optional.of('/foo/bar')
+            valueOf('XDG_CACHE_HOME') >> Optional.empty()
+        }
+        baseDir = new BaseDir(env)
+
+        expect:
+        baseDir.userCacheDir == '/foo/bar/.cache'
+    }
+
+    void 'When XDG_CACHE_HOME is empty, return default value ($HOME/.cache)'() {
+        given:
+        def env = Stub(Environment) {
+            valueOf('HOME') >> Optional.of('/foo/bar')
+            valueOf('XDG_CACHE_HOME') >> Optional.of('')
+        }
+        baseDir = new BaseDir(env)
+
+        expect:
+        baseDir.userCacheDir == '/foo/bar/.cache'
+    }
 }

@@ -22,6 +22,10 @@ public class BaseDir {
         return defaultValueIfNotSet("XDG_CONFIG_HOME", ".config");
     }
 
+    public String getUserCacheDir() {
+        return defaultValueIfNotSet("XDG_CACHE_HOME", ".cache");
+    }
+
     private String getValueOfHome() {
         Optional<String> home = environment.valueOf("HOME");
         if (!home.isPresent()) {
