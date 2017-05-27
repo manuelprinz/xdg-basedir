@@ -14,8 +14,10 @@ repositories {
 }
 
 dependencies {
+    compile 'org.valid4j:valid4j:0.5.0'
     testCompile 'org.codehaus.groovy:groovy-all:2.3.11'
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4-rc-2'
+    testCompile 'cglib:cglib-nodep:3.2.5'
 }
 
 checkstyle {
