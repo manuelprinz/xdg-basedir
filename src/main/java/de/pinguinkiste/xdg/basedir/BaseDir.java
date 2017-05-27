@@ -22,6 +22,14 @@ public class BaseDir {
         return getValueOfHome() + "/.local/share";
     }
 
+    public String getUserConfigDir() {
+        String dataHome = environment.valueOf("XDG_CONFIG_HOME").orElse("");
+        if (!dataHome.equals("")) {
+            return dataHome;
+        }
+        return getValueOfHome() + "/.config";
+    }
+
     private String getValueOfHome() {
         Optional<String> home = environment.valueOf("HOME");
         if (!home.isPresent()) {
