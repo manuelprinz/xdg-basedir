@@ -15,19 +15,11 @@ public class BaseDir {
     }
 
     public String getUserDataDir() {
-        String dataHome = environment.valueOf("XDG_DATA_HOME").orElse("");
-        if (!dataHome.equals("")) {
-            return dataHome;
-        }
-        return getValueOfHome() + "/.local/share";
+        return defaultValueIfNotSet("XDG_DATA_HOME", ".local/share");
     }
 
     public String getUserConfigDir() {
-        String dataHome = environment.valueOf("XDG_CONFIG_HOME").orElse("");
-        if (!dataHome.equals("")) {
-            return dataHome;
-        }
-        return getValueOfHome() + "/.config";
+        return defaultValueIfNotSet("XDG_CONFIG_HOME", ".config");
     }
 
     private String getValueOfHome() {
@@ -36,5 +28,13 @@ public class BaseDir {
             throw new IllegalStateException("The HOME environment variable is not set. This should not happen.");
         }
         return home.get();
+    }
+
+    private String defaultValueIfNotSet(String envVar, String postfix) {
+        String value = environment.valueOf(envVar).orElse("");
+        if (!value.equals("")) {
+            return value;
+        }
+        return getValueOfHome() + "/" + postfix;
     }
 }
