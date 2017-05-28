@@ -39,6 +39,15 @@ public class BaseDir {
         return listFromColonSeparatedString(dataDirs);
     }
 
+    public List<String> getConfigDirs() {
+        Optional<String> configDirsValue = environment.valueOf("XDG_CONFIG_DIRS");
+        String dataDirs = "/etc/xdg";
+        if (configDirsValue.isPresent() && isNotEmptyString(configDirsValue.get())) {
+            dataDirs = configDirsValue.get();
+        }
+        return listFromColonSeparatedString(dataDirs);
+    }
+
     private String getValueOfHome() {
         Optional<String> home = environment.valueOf("HOME");
         if (!home.isPresent()) {
