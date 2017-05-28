@@ -31,21 +31,11 @@ public class BaseDir {
     }
 
     public List<String> getDataDirs() {
-        Optional<String> dataDirsValue = environment.valueOf("XDG_DATA_DIRS");
-        String dataDirs = "/usr/local/share:/usr/share";
-        if (dataDirsValue.isPresent() && isNotEmptyString(dataDirsValue.get())) {
-            dataDirs = dataDirsValue.get();
-        }
-        return listFromColonSeparatedString(dataDirs);
+        return defaultListIfNotSet("XDG_DATA_DIRS", "/usr/local/share:/usr/share");
     }
 
     public List<String> getConfigDirs() {
-        Optional<String> configDirsValue = environment.valueOf("XDG_CONFIG_DIRS");
-        String dataDirs = "/etc/xdg";
-        if (configDirsValue.isPresent() && isNotEmptyString(configDirsValue.get())) {
-            dataDirs = configDirsValue.get();
-        }
-        return listFromColonSeparatedString(dataDirs);
+        return defaultListIfNotSet("XDG_CONFIG_DIRS", "/etc/xdg");
     }
 
     private String getValueOfHome() {
@@ -62,6 +52,15 @@ public class BaseDir {
             return value;
         }
         return getValueOfHome() + "/" + postfix;
+    }
+
+    private List<String> defaultListIfNotSet(String envVar, String defaultList) {
+        Optional<String> dataDirsValue = environment.valueOf(envVar);
+        String dataDirs = defaultList;
+        if (dataDirsValue.isPresent() && isNotEmptyString(dataDirsValue.get())) {
+            dataDirs = dataDirsValue.get();
+        }
+        return listFromColonSeparatedString(dataDirs);
     }
 
     private boolean isNotEmptyString(String string) {
