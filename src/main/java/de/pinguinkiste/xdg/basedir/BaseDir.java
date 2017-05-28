@@ -1,6 +1,10 @@
 package de.pinguinkiste.xdg.basedir;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import static java.util.Collections.unmodifiableList;
 
 public class BaseDir {
 
@@ -26,6 +30,15 @@ public class BaseDir {
         return defaultValueIfNotSet("XDG_CACHE_HOME", ".cache");
     }
 
+    public List<String> getDataDirs() {
+        Optional<String> dataDirsValue = environment.valueOf("XDG_DATA_DIRS");
+        String dataDirs = "/usr/local/share:/usr/share";
+        if (dataDirsValue.isPresent() && isNotEmptyString(dataDirsValue.get())) {
+            dataDirs = dataDirsValue.get();
+        }
+        return listFromColonSeparatedString(dataDirs);
+    }
+
     private String getValueOfHome() {
         Optional<String> home = environment.valueOf("HOME");
         if (!home.isPresent()) {
@@ -40,5 +53,18 @@ public class BaseDir {
             return value;
         }
         return getValueOfHome() + "/" + postfix;
+    }
+
+    private boolean isNotEmptyString(String string) {
+        return !string.equals("");
+    }
+
+    private List<String> listFromColonSeparatedString(String string) {
+        List<String> result = new ArrayList<>();
+        for (String element : string.split(":")) {
+            if (isNotEmptyString(element))
+                result.add(element);
+        }
+        return unmodifiableList(result);
     }
 }
