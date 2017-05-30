@@ -16,7 +16,7 @@ public class BaseDir {
     this(new Environment());
   }
 
-  protected BaseDir(Environment environment) {
+  BaseDir(Environment environment) {
     this.environment = environment;
   }
 
