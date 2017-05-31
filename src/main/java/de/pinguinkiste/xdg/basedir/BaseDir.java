@@ -4,9 +4,11 @@ import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Basic accessor class to the base directories defined in the XDG Base Directory Specification.
@@ -142,8 +144,8 @@ public class BaseDir {
   }
 
   @Contract(pure = true)
-  private boolean isNotEmptyString(String string) {
-    return !string.equals("");
+  private boolean isNotEmptyString(@Nullable String string) {
+    return !Objects.equals(string, "");
   }
 
   /**
