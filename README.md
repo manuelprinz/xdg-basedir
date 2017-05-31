@@ -17,3 +17,7 @@ The table below lists the compatibility between `xdg-basedir` versions and the v
 
 This library is versioned using Semantic Versioning as defined in the
  [Semantic Versioning Specification](http://semver.org/), version 2.0.0.
+
+# License
+
+This library is licensed under the [MIT License](https://mit-license.org/).
