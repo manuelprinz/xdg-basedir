@@ -13,6 +13,14 @@ The table below lists the compatibility between `xdg-basedir` versions and the v
 | --- | --- |
 | &ge; 1.0 | 0.7 (latest) |
 
+# Motivation
+
+My main motivation for writing this library was trying out some of the Java 8 and IntelliJ IDEA features, as well as
+ becoming familiar with the deployment process on Maven Central / Sonatype.
+
+Although the library is very tiny and has close to no complexity (meaning you could easily implement the logic
+ yourself), I wrote it in the hope that it may be useful to others. 
+
 # Notes
 
 This library is versioned using Semantic Versioning as defined in the
