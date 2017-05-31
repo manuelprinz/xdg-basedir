@@ -14,6 +14,14 @@ import java.util.Optional;
  * Effectively with Legacy Code" by Michael Feathers.
  */
 class Environment {
+  /**
+   * Wrapper method around {@link System#getenv(String)}.
+   *
+   * <p>It can be used by stub during testing.
+   *
+   * @param name The name of the environment variable.
+   * @return An {@link Optional} containing the result of the lookup.
+   */
   public Optional<String> valueOf(String name) {
     require(name, is(notNullValue()));
     return Optional.ofNullable(System.getenv(name));
