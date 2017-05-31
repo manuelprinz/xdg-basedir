@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Source Code and Tests" pattern="file[xdg-basedir_main]:*/||file[xdg-basedir_test]:*/" />
+</component>
