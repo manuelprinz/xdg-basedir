@@ -24,6 +24,38 @@ import spock.lang.Specification
 
 class EnvironmentSpec extends Specification {
 
+    static final String DEFINED_ENV_VAR = 'HOME'
+    static final String UNDEFINED_ENV_VAR = '_NON_EXISTING_ENV_VAR'
+
+    void 'Retrieving the value of an environment variable that is set should return that value'() {
+        given:
+        def env = new Environment()
+
+        expect: 'environment variable is defined (pre-condition)'
+        System.getenv(DEFINED_ENV_VAR) != null
+
+        when:
+        def result = env.valueOf(DEFINED_ENV_VAR)
+
+        then:
+        result.isPresent()
+        result.get() == System.getenv(DEFINED_ENV_VAR)
+    }
+
+    void 'Retrieving the value of an environment variable that is not set should return an empty value'() {
+        given:
+        def env = new Environment()
+
+        expect: 'environment variable is not defined (pre-condition)'
+        System.getenv(UNDEFINED_ENV_VAR) == null
+
+        when:
+        def result = env.valueOf(UNDEFINED_ENV_VAR)
+
+        then:
+        !result.isPresent()
+    }
+
     void 'Passing a null value to valueOf() should throw an exception'() {
         when:
         new Environment().valueOf(null)
