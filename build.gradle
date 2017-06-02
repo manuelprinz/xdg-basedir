@@ -5,6 +5,7 @@ apply plugin: 'groovy' // for Spock tests only
 apply plugin: 'java'
 
 apply plugin: 'checkstyle'
+apply plugin: 'jacoco'
 apply plugin: 'pmd'
 
 sourceCompatibility = 1.8
