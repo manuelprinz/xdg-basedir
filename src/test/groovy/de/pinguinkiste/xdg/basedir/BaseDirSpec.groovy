@@ -27,6 +27,20 @@ class BaseDirSpec extends Specification {
 
     def baseDir = new BaseDir()
 
+    void 'When the user-specific data directory is retrieved and HOME is not set an exception should be thrown'() {
+        given:
+        def env = Stub(Environment) {
+            valueOf('HOME') >> Optional.empty()
+        }
+        baseDir = new BaseDir(env)
+
+        when:
+        baseDir.userDataDir
+
+        then:
+        thrown(IllegalStateException)
+    }
+
     void 'When XDG_DATA_HOME is set, return its value'() {
         given:
         def env = Stub(Environment) {
@@ -62,6 +76,20 @@ class BaseDirSpec extends Specification {
         baseDir.userDataDir == '/foo/bar/.local/share'
     }
 
+    void 'When the user-specific configuration directory is retrieved and HOME is not set an exception should be thrown'() {
+        given:
+        def env = Stub(Environment) {
+            valueOf('HOME') >> Optional.empty()
+        }
+        baseDir = new BaseDir(env)
+
+        when:
+        baseDir.userConfigDir
+
+        then:
+        thrown(IllegalStateException)
+    }
+
     void 'When XDG_CONFIG_HOME is set, return its value'() {
         given:
         def env = Stub(Environment) {
@@ -95,6 +123,20 @@ class BaseDirSpec extends Specification {
 
         expect:
         baseDir.userConfigDir == '/foo/bar/.config'
+    }
+
+    void 'When the user-specific cache directory is retrieved and HOME is not set an exception should be thrown'() {
+        given:
+        def env = Stub(Environment) {
+            valueOf('HOME') >> Optional.empty()
+        }
+        baseDir = new BaseDir(env)
+
+        when:
+        baseDir.userCacheDir
+
+        then:
+        thrown(IllegalStateException)
     }
 
     void 'When XDG_CACHE_HOME is set, return its value'() {
