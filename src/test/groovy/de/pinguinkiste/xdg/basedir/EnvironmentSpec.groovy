@@ -20,7 +20,6 @@
 
 package de.pinguinkiste.xdg.basedir
 
-import org.valid4j.errors.RequireViolation
 import spock.lang.Specification
 
 class EnvironmentSpec extends Specification {
@@ -30,7 +29,6 @@ class EnvironmentSpec extends Specification {
         new Environment().valueOf(null)
 
         then:
-        def exception = thrown(RequireViolation)
-        exception.message =~ /but: was null/
+        thrown(NullPointerException)
     }
 }

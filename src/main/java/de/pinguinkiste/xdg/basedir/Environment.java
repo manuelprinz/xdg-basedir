@@ -20,11 +20,8 @@
 
 package de.pinguinkiste.xdg.basedir;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.notNullValue;
-import static org.valid4j.Assertive.require;
-
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Thin wrapper class to retrieve environment values.
@@ -39,11 +36,10 @@ class Environment {
    *
    * <p>It can be used by stub during testing.
    *
-   * @param name The name of the environment variable.
+   * @param name The name of the environment variable. Must no be {@code null}.
    * @return An {@link Optional} containing the result of the lookup.
    */
-  public Optional<String> valueOf(String name) {
-    require(name, is(notNullValue()));
+  public Optional<String> valueOf(@NotNull String name) {
     return Optional.ofNullable(System.getenv(name));
   }
 }
